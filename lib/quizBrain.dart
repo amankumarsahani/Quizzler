@@ -1,9 +1,9 @@
-import 'questionBank.dart';
+import 'question_bank.dart';
 
 class QuizBrain {
   int _quesNum = 0;
 
-  List<QuestionBank> _questionBank = [
+  final List<QuestionBank> _questionBank = [
     QuestionBank('The smallest country in the world is Monaco', false),
     QuestionBank('A heptagon has six sides.', false),
     QuestionBank(

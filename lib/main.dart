@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'quizBrain.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -12,15 +12,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: SafeArea(
         child: Scaffold(
-          backgroundColor: Color(0xFFF0F0F0),
+          backgroundColor: const Color(0xFFF0F0F0),
           appBar: AppBar(
             backgroundColor: Colors.teal,
-            title: Text(
+            title: const Text(
               'Quizzler',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
             ),
           ),
-          body: Quizler(),
+          body: const Quizler(),
         ),
       ),
     );
@@ -55,11 +55,11 @@ class _QuizlerState extends State<Quizler> {
         if (userAns == quizBrain.quesAns()) {
           scoreBoard++;
           scoreKeeperIcons.add(
-            Icon(Icons.check, color: Colors.green),
+            const Icon(Icons.check, color: Colors.green),
           );
         } else {
           scoreKeeperIcons.add(
-            Icon(Icons.close, color: Colors.red),
+            const Icon(Icons.close, color: Colors.red),
           );
         }
       }
@@ -90,10 +90,10 @@ class _QuizlerState extends State<Quizler> {
               ),
             ),
           ),
-          Expanded(
+          const Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 "*Important Note : Don't Try to switch the tabs as It may crash your Application.",
                 style:
@@ -102,7 +102,7 @@ class _QuizlerState extends State<Quizler> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 1.0,
           ),
           Expanded(
@@ -114,13 +114,13 @@ class _QuizlerState extends State<Quizler> {
                 quizBrain.nextQues();
                 score(true);
               },
-              child: Text(
+              child: const Text(
                 'True',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 1.0,
           ),
           Expanded(
@@ -132,7 +132,7 @@ class _QuizlerState extends State<Quizler> {
                 quizBrain.nextQues();
                 score(false);
               },
-              child: Text(
+              child: const Text(
                 'False',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
               ),
