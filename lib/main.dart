@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'quizBrain.dart';
+import 'questionBank.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,21 +36,22 @@ class Quizler extends StatefulWidget {
 }
 
 class _QuizlerState extends State<Quizler> {
+  QuizBrain quizBrain = QuizBrain();
   List<Icon> scoreKeeperIcons = [];
-  List<String> ques = [
-    'The smallest country in the world is Monaco.False',
-    'A heptagon has six sides.False',
-    'Lightning is seen before it\'s heard because light travels faster than sound.True',
-    'U.S. presidents originally lived in the "President\'s Palace," but the name was changed to avoid affectations of royalty.True',
-    'The biggest muscle in the human body is the gluteus maximus (buttock muscle).True',
-    'The Titanic had enough lifeboats to save almost everyone on board.False',
-    'Bollywood is the nickname of Britain\'s movie industry.False',
-    'Only Americans and Soviets have walked on the Moon.False',
-    'Vampire bats feed on blood.True',
-    'When Mickey Mouse debuted on screen in 1928, it was in a silent film.False',
-  ];
+  score(bool userAns) {
+    setState(() {
+      if (userAns == quizBrain.quesAns()) {
+        scoreKeeperIcons.add(
+          Icon(Icons.check, color: Colors.green),
+        );
+      } else {
+        scoreKeeperIcons.add(
+          Icon(Icons.close, color: Colors.red),
+        );
+      }
+    });
+  }
 
-  int quesNum = 1;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -62,7 +65,7 @@ class _QuizlerState extends State<Quizler> {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
-                  ques[quesNum],
+                  quizBrain.quesText(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.indigo[900],
@@ -79,17 +82,8 @@ class _QuizlerState extends State<Quizler> {
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.teal)),
               onPressed: () {
-                setState(
-                  () {
-                    quesNum++;
-                    scoreKeeperIcons.add(
-                      Icon(
-                        Icons.check,
-                        color: Colors.green,
-                      ),
-                    );
-                  },
-                );
+                quizBrain.nextQues();
+                score(true);
               },
               child: Text(
                 'True',
@@ -106,17 +100,8 @@ class _QuizlerState extends State<Quizler> {
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.redAccent)),
               onPressed: () {
-                setState(
-                  () {
-                    quesNum++;
-                    scoreKeeperIcons.add(
-                      Icon(
-                        Icons.close,
-                        color: Colors.red,
-                      ),
-                    );
-                  },
-                );
+                quizBrain.nextQues();
+                score(false);
               },
               child: Text(
                 'False',
