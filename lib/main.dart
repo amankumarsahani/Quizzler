@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'quizBrain.dart';
-import 'questionBank.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,12 +14,11 @@ class MyApp extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Color(0xFFF0F0F0),
           appBar: AppBar(
-            backgroundColor: Colors.blueGrey,
+            backgroundColor: Colors.teal,
             title: Text(
               'Quizzler',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
             ),
-            centerTitle: true,
           ),
           body: Quizler(),
         ),
@@ -38,16 +37,31 @@ class Quizler extends StatefulWidget {
 class _QuizlerState extends State<Quizler> {
   QuizBrain quizBrain = QuizBrain();
   List<Icon> scoreKeeperIcons = [];
+  int scoreBoard = 0;
   score(bool userAns) {
     setState(() {
-      if (userAns == quizBrain.quesAns()) {
-        scoreKeeperIcons.add(
-          Icon(Icons.check, color: Colors.green),
-        );
+      if (quizBrain.isFinished() == true) {
+        Alert(
+                context: context,
+                title: "CONGRATULATIONS",
+                desc:
+                    "You have Completed your Quiz and Your Score is : $scoreBoard")
+            .show();
+
+        quizBrain.reset();
+        scoreKeeperIcons = [];
+        scoreBoard = 0;
       } else {
-        scoreKeeperIcons.add(
-          Icon(Icons.close, color: Colors.red),
-        );
+        if (userAns == quizBrain.quesAns()) {
+          scoreBoard++;
+          scoreKeeperIcons.add(
+            Icon(Icons.check, color: Colors.green),
+          );
+        } else {
+          scoreKeeperIcons.add(
+            Icon(Icons.close, color: Colors.red),
+          );
+        }
       }
     });
   }
@@ -60,7 +74,7 @@ class _QuizlerState extends State<Quizler> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            flex: 10,
+            flex: 9,
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -75,6 +89,21 @@ class _QuizlerState extends State<Quizler> {
                 ),
               ),
             ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "*Important Note : Don't Try to switch the tabs as It may crash your Application.",
+                style:
+                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.start,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 1.0,
           ),
           Expanded(
             flex: 1,

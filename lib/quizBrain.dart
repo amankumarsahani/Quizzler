@@ -2,6 +2,7 @@ import 'questionBank.dart';
 
 class QuizBrain {
   int _quesNum = 0;
+
   List<QuestionBank> _questionBank = [
     QuestionBank('The smallest country in the world is Monaco', false),
     QuestionBank('A heptagon has six sides.', false),
@@ -26,20 +27,25 @@ class QuizBrain {
         false),
   ];
 
+  bool isFinished() {
+    return _quesNum >= _questionBank.length - 1 ? true : false;
+  }
+
   void nextQues() {
     if (_quesNum < _questionBank.length - 1) {
       _quesNum++;
     }
   }
 
-  String quesText() {
-    print(_questionBank[_quesNum].ques);
+  void reset() {
+    _quesNum = 0;
+  }
 
+  String quesText() {
     return _questionBank[_quesNum].ques;
   }
 
   bool quesAns() {
-    print(_questionBank[_quesNum].ans);
     return _questionBank[_quesNum].ans;
   }
 }
